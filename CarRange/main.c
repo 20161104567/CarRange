@@ -12,8 +12,8 @@ int main(int argc, const char * argv[]) {
     FILE *fw;
     int i;
     char s1[70],s2[70];
-    char date[10],time[10],lat[10],lg[12],high[10],rate[10],heading[10];
-    fr=fopen("//Users//a20161104567//Desktop//CarRange//input.txt","r+");
+    char year[10],month[10],date[10],time[10],branch[10],sec[10],lat[10],lg[12],high[10],rate[10],heading[10];
+    fr=fopen("//Users//a20161104567//Desktop//CarRange//GPS170510.log","r+");
     fw=fopen("//Users//a20161104567//Desktop//CarRange//output.csv","w+");
     if(fr==NULL)
     {
@@ -21,51 +21,83 @@ int main(int argc, const char * argv[]) {
     }
     else
     {
-        fscanf(fr,"%s\n%s",s1,s2);
-        printf("%s\n%s\n",s1,s2);
-        //fprintf(fw,"%s\n%s\n",s1,s2);
         printf("解读GPS\n");
         fprintf(fw,"解读GPS\n");
-        printf("日期,时间,纬度,经度,海拔,地面速率,地面航线\n");
-        fprintf(fw,"日期,时间,维度,经度,海拔,地面速率,地面航线\n");
-        for(i=0;i<6;i++)
+        printf("日期,时间,纬度,经度,海拔,地面速率,地面航向\n");
+        fprintf(fw,"日期,时间,维度,经度,海拔,地面速率,地面航向\n");
+        while (fscanf(fr,"%s %s",s1,s2)!=EOF)
         {
-            date[i]=s1[51+i];
+            
+            for(i=0;i<2;i++)
+            {
+                year[i]=s1[55+i];
+            }
+            year[2]='\0';
+            
+            for(i=0;i<2;i++)
+            {
+                month[i]=s1[53+i];
+            }
+            month[2]='\0';
+            
+            for(i=0;i<2;i++)
+            {
+                date[i]=s1[51+i];
+            }
+            date[2]='\0';
+            
+            for(i=0;i<2;i++)
+            {
+                time[i]=s1[7+i];
+            }
+            time[2]='\0';
+            
+            for(i=0;i<2;i++)
+            {
+                branch[i]=s1[9+i];
+            }
+            branch[2]='\0';
+            
+            for(i=0;i<2;i++)
+            {
+                sec[i]=s1[11+i];
+            }
+            sec[2]='\0';
+            
+            for(i=0;i<8;i++)
+            {
+                lg[i]=s1[16+i];
+            }
+            lg[8]='\0';
+            
+            for(i=0;i<9;i++)
+            {
+                lat[i]=s1[27+i];
+            }
+            lat[9]='\0';
+            
+            for(i=0;i<4;i++)
+            {
+                high[i]=s2[43+i];
+            }
+            high[4]='\0';
+            
+            for(i=0;i<5;i++)
+            {
+                rate[i]=s1[39+i];
+            }
+            rate[5]='\0';
+            
+            for(i=0;i<5;i++)
+            {
+                heading[i]=s1[45+i];
+            }
+            heading[5]='\0';
+            
+            printf("%s年%s月%s日,%s时%s分%s秒,%s度,%s度,%sm,%sm/s,%s度\n",year,month,date,time,branch,sec,lg,lat,high,rate,heading);
+            fprintf(fw,"%s年%s月%s日,%s时%s分%s秒,%s度,%s度,%sm,%sm/s,%s度\n",year,month,date,time,branch,sec,lg,lat,high,rate,heading);
+
         }
-        date[6]='\0';
-        
-        for(i=0;i<6;i++)
-        {
-            time[i]=s1[7+i];
-        }
-        time[6]='\0';
-        
-        for(i=0;i<8;i++)
-        {
-            lg[i]=s1[16+i];
-        }
-        lg[8]='\0';
-        
-        for(i=0;i<8;i++)
-        {
-            lat[i]=s1[28+i];
-        }
-        lat[8]='\0';
-       
-        for(i=0;i<5;i++)
-        {
-            rate[i]=s1[39+i];
-        }
-        rate[5]='\0';
-        
-        for(i=0;i<5;i++)
-        {
-            heading[i]=s1[45+i];
-        }
-        heading[5]='\0';
-        
-        printf("%s,%s,%s,%s,%sm,%sm/s,%s\n",date,time,lg,lat,high,rate,heading);
-        fprintf(fw,"%s,%s,%s,%s,%s,%s,%s\n",date,time,lg,lat,high,rate,heading);
         fclose(fr);
         fclose(fw);
     }
