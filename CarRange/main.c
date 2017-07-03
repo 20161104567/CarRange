@@ -64,23 +64,23 @@ int main(int argc, const char * argv[]) {
             }
             sec[2]='\0';
             
+            for(i=0;i<2;i++)
+            {
+                lat[i]=s1[16+i];
+            }
+            lat[2]='\0';
+            
+            for(i=0;i<4;i++)
+            {
+                assign1[i]=s1[18+i];
+            }
+            assign1[4]='\0';
+            
             for(i=0;i<3;i++)
             {
-                lg[i]=s1[16+i];
+                lg[i]=s1[27+i];
             }
             lg[3]='\0';
-            
-            for(i=0;i<8;i++)
-            {
-                assign1[i]=s1[19+i];
-            }
-            assign1[5]='\0';
-            
-            for(i=0;i<3;i++)
-            {
-                lat[i]=s1[27+i];
-            }
-            lat[3]='\0';
             
             for(i=0;i<6;i++)
             {
